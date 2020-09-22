@@ -1,0 +1,6 @@
+node_modules/
+index_old.html
+app-env
+.env
+.DS_Store
+Archive.zip
