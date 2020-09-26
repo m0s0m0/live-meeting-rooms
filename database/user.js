@@ -7,6 +7,13 @@ async function getAllCompanyUser(company_id){
 	return result;
 }
 
+
+async function getUserByEmail(email){
+	let query = `select * from public.users where email='${email}'`
+	let result = await runQuery(query)
+	return result
+}
+
 async function getAllPermissions(user_id){
 	let query = `select permissions from user_permissions where user_id='${user_id}'`;
 	let result = await runQuery(query);
@@ -18,5 +25,6 @@ async function createUser(user_data){
 
 module.exports = {
   getAllCompanyUser: getAllCompanyUser,
-  getAllPermissions: getAllPermissions
+  getAllPermissions: getAllPermissions,
+  getUserByEmail: getUserByEmail
 };
