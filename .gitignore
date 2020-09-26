@@ -4,3 +4,4 @@ app-env
 .env
 .DS_Store
 Archive.zip
+package-lock.json

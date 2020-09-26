@@ -1,12 +1,18 @@
-let database  =  require('./database/user').getAllCompanyUser;
-console.log("database", database);
-require('dotenv').config();
-var passport = require('passport');
+const database  =  require('./database/index')
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const express = require('express');
+const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io').listen(server);
+const flash = require('connect-flash');
+var session = require('express-session');
+const dotenv = require('dotenv');
+const logger = require('morgan');
 
-var express = require('express');
-var app = express();
-var server = require('http').createServer(app);
-var io = require('socket.io').listen(server);
+dotenv.config({ path: '.env.example' });
+
+
 users = [];
 connections = [];
 rooms = [];
@@ -19,17 +25,23 @@ DM_API_KEY = process.env.DM_API_KEY;
 // Set given room for url parameter
 var given_room = ""
 
+app.set('view engine', 'ejs'); // set up ejs for templating
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 app.use('/assets', express.static('assets'));
 app.use('/controllers', express.static('controllers'));
+app.use(session({ cookie: { maxAge: 60000 }, 
+                  secret: 'woot',
+                  resave: false, 
+                  saveUninitialized: false}));
 
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(logger('dev'));
+
+
 
 server.listen(process.env.PORT || 3000);
 console.log('Server Started . . .');
-
-app.set('view engine', 'ejs');
-
 
 app.get('/room/:room', function(req, res) {
     given_room = req.params.room
@@ -37,21 +49,32 @@ app.get('/room/:room', function(req, res) {
 });
 
 app.get('/user/login', function(req, res) {
-    res.render('login', {'shahzad': 'malik'});
+// render the page and pass in any flash data if it exists
+    res.render('login');
 });
 
-app.post('/login',
-  function(req, res) {
-    // If this function gets called, authentication was successful.
-    // `req.user` contains the authenticated user.
-    res.json({"shahzad": "malik"});
-  });
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    console.log("hey");
+    User.findOne({ username: username }, function(err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
+  }
+));
 
-app.get('/company/users', async function(req, res) {
-    let companyUsers = await database(1)
-    console.log(companyUsers, "companyUsers");
-    res.render(companyUsers);
-});
+
+app.post('/user/login',
+  passport.authenticate('local', { successRedirect: '/',
+                                   failureFlash: true })
+);
+
 
 var roomno = 1;
 
