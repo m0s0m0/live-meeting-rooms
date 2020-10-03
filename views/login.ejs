@@ -3,43 +3,214 @@
 <html>
 <head>
 	<title>Node Authentication</title>
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="login.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 	<style>
-		body 		{ padding-top:80px; }
+		<style>
+		.split {	
+    	height: 100%;
+    	position: fixed;
+    	top: 0;
+    	z-index: 1;
+    	overflow-x: hidden;
+		}
+		.left {
+		width: 70%;
+		left: 0px;
+		overflow: hidden;
+		}
+		.text{
+  		font-size: 60px;
+  		font-family: Arial Narrow, sans-serif;
+  		color: brown;
+  		top: 80px;
+  		margin-left: 60px;
+  		position: absolute;
+  		font-weight: bolder;
+		}
+		.subtext{
+  		font-size: 60px;
+  		font-family: Arial Narrow, sans-serif;
+  		position: absolute;
+  		font-weight: bolder;
+  		color: #9B9864;
+        top: 150px;
+        margin-left: 15px;
+    	}
+    	.fade{
+  		-webkit-animation-name: fade;
+  		-webkit-animation-duration: 2s;
+  		animation-name: fade;
+  		animation-duration: 2s;
+		}
+		@-webkit-keyframes fade {
+  		from {opacity: .4} 
+  		to {opacity: 1}
+		}
+
+		@keyframes fade {
+  		from {opacity: .4} 
+  		to {opacity: 1}
+		}
+
+
+		.right {
+    	right: 0;
+    	width: 30%;
+    	background-color: #FFFFF0;
+    	}
+    	.input-container {
+      display: flex;
+      width: 100%;
+    	}
+    	.input-container ul{
+      margin-top: 25px;
+      margin-left: -36px;
+    	}
+    	.icon{
+      color: #777672;
+      width: 10px; 
+      height: 10px;
+      margin-left: 18px;
+      margin-top: -6px;
+    	}
+
 	</style>
+
+	<script type="text/javascript">
+		var slideIndex = 0;
+			function slideshow() {
+  				var i;
+  				var slides = document.getElementsByClassName("mySlides");
+  				for (i = 0; i < slides.length; i++) {
+    				slides[i].style.display = "none";  
+  					}
+  					slideIndex++;
+  					if (slideIndex > slides.length)
+					{slideIndex = 1}    
+  					slides[slideIndex-1].style.display = "block";    
+  					setTimeout(slideshow, 3000); 
+				}
+
+			function ValidateEmail(mail) 
+				{
+ 				if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(emailinput.value))
+  					{
+    				return (true)
+  					}
+  				else{
+  					document.getElementById("msg1").innerHTML="Use valid email address!";
+  					document.getElementById("emailinput").style.borderBottomColor="#C21A09";
+  					return (false)
+    				}
+				}
+			
+        	function emptymail()
+        	{document.getElementById("msg1").innerHTML="Email cannot be empty!";
+        	document.getElementById("emailinput").style.borderBottomColor="#C21A09";}
+
+        	function emptypass()
+        	{document.getElementById("msg2").innerHTML="Password cannot be empty!";
+        	document.getElementById("passwordinput").style.borderBottomColor="#C21A09";}
+
+            function login()
+            {
+                var mail=document.getElementById("emailinput").value;
+                var pass=document.getElementById("passwordinput").value;
+                if(mail=="")
+                {
+                	var m=emptymail();	
+                }
+                else if(pass=="")
+                {
+     				var p=emptypass();
+     			}
+                else
+                {
+                    alert("access given");
+                }
+            }
+    </script>
 </head>
-<body>
-<div class="container">
 
-<div class="col-sm-6 col-sm-offset-3">
+<body onload="slideshow()">
+	<div class="split left">
+		<div class="mySlides fade">
+  		<img src="work.jpg" style="width: 100%;height: 100%;position: relative">
+  		<div class="text" id="b1">RemFun</div>
+  		<div class="subtext" id="b2">Have fun while working!</div>
+  		</div>
 
-	<h1><span class="fa fa-sign-in"></span> Login</h1>
+		<div class="mySlides fade">
+  		<img src="workspace.jpg" style="width: 100%;height: 100%;position: relative">
+  		<div class="text">RemFun</div>
+  		<div class="subtext">Have fun while working!</div>
+		</div>
 
-	<!-- show any messages that come back with authentication -->
-	
+		<div class="mySlides fade">
+  		<img src="introduction.png" style="width: 100%;height: 100%;position: relative">
+  		<div class="text">RemFun</div>
+  		<div class="subtext">Have fun while working!</div>
+    	</div>
 
-	<!-- LOGIN FORM -->
+    	<div class="mySlides fade">
+      	<img src="team.png" style="width: 100%;height: 100%;position: relative">
+      	<div class="text" >RemFun</div>
+      	<div class="subtext">Have fun while working!</div>
+      	</div>
+
+		<div class="mySlides fade">
+      	<img src="snacks.jpg" style="width: 100%;height: 100%;position: relative">
+      	<div class="text" >RemFun</div>
+      	<div class="subtext">Have fun while working!</div>
+      	</div>
+
+    	<div class="mySlides fade">
+      	<img src="intro.png" style="width: 100%;height: 100%;position: relative">
+      	<div class="text" >RemFun</div>
+      	<div class="subtext">Have fun while working!</div>
+      	</div>
+
+    	<div class="mySlides fade">
+      	<img src="happyhour.jpg" style="width: 100%;height: 100%;position: relative">
+      	<div class="text">RemFun</div>
+      	<div class="subtext">Have fun while working!</div>
+    	</div>
+
+    	<div class="mySlides fade">
+     	<img src="birthday.jpg" style="width: 100%;height: 100%;position: relative">
+      	<div class="text">RemFun</div>
+      	<div class="subtext">Have fun while working!</div>
+    	</div>																	
+    </div>
+
+    <div class="split right">
+    <button type="button" class="header">LOGIN</button>
+    <div class="box">
 	<form action="/user/login" method="post">
-		<div class="form-group">
-			<label>Email</label>
-			<input type="text" class="form-control" name="username">
+		<button type="button" class="btn"><img src="logo.png">
+      	<span>GOOGLE</span></button>
+      	<p id="or">or</p><br>
+      	<div class="input-container">
+      	<i class="fa fa-envelope icon"></i>
+		<p id="email">Enter email</p>
 		</div>
-		<div class="form-group">
-			<label>Password</label>
-			<input type="password" class="form-control" name="password">
-		</div>
+    	<input type="text" id="emailinput" onchange="ValidateEmail()">
+      	<p id="msg1"></p>
 
-		<button type="submit" class="btn btn-warning btn-lg">Login</button>
+      	<div class="input-container">
+      	<ul><i class="fa fa-lock icon"></i></ul>
+      	<p id="password">Enter password</p>
+    	</div>
+    	
+      	<input type ="password" id="passwordinput">
+      	<p id="msg2"></p>
+	    <button type="button" class="login" onclick ="login()"><span>LOGIN</span></button> 
+	    <input type="button" class="forgotpass" onclick ="forgotpass()"value="Forgot password?"> 
+    </div>         
+    </div>
 	</form>
-
-	<hr>
-
-	<p>Need an account? <a href="/signup">Signup</a></p>
-	<p>Or go <a href="/">home</a>.</p>
-
-</div>
-
-</div>
 </body>
 </html>
