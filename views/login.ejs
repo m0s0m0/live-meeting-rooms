@@ -1,13 +1,6 @@
-<!-- views/login.ejs -->
-<!doctype html>
-<html>
-<head>
-	<title>Node Authentication</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="login.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<%- include('base.ejs') %>
 
-	<style>
+  <style>
 		<style>
 		.split {	
     	height: 100%;
@@ -80,40 +73,40 @@
 	</style>
 
 	<script type="text/javascript">
-		var slideIndex = 0;
-			function slideshow() {
-  				var i;
-  				var slides = document.getElementsByClassName("mySlides");
-  				for (i = 0; i < slides.length; i++) {
-    				slides[i].style.display = "none";  
-  					}
-  					slideIndex++;
-  					if (slideIndex > slides.length)
-					{slideIndex = 1}    
-  					slides[slideIndex-1].style.display = "block";    
-  					setTimeout(slideshow, 3000); 
-				}
+    var slideIndex = 0;
+      function slideshow() {
+          var i;
+          var slides = document.getElementsByClassName("mySlides");
+          for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";  
+            }
+            slideIndex++;
+            if (slideIndex > slides.length)
+          {slideIndex = 1}    
+            slides[slideIndex-1].style.display = "block";    
+            setTimeout(slideshow, 3000); 
+        }
 
-			function ValidateEmail(mail) 
-				{
- 				if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(emailinput.value))
-  					{
-    				return (true)
-  					}
-  				else{
-  					document.getElementById("msg1").innerHTML="Use valid email address!";
-  					document.getElementById("emailinput").style.borderBottomColor="#C21A09";
-  					return (false)
-    				}
-				}
-			
-        	function emptymail()
-        	{document.getElementById("msg1").innerHTML="Email cannot be empty!";
-        	document.getElementById("emailinput").style.borderBottomColor="#C21A09";}
+      function ValidateEmail(mail) 
+        {
+        if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(emailinput.value))
+            {
+            return (true)
+            }
+          else{
+            document.getElementById("msg1").innerHTML="Use valid email address!";
+            document.getElementById("emailinput").style.borderBottomColor="#C21A09";
+            return (false)
+            }
+        }
+      
+          function emptymail()
+          {document.getElementById("msg1").innerHTML="Email cannot be empty!";
+          document.getElementById("emailinput").style.borderBottomColor="#C21A09";}
 
-        	function emptypass()
-        	{document.getElementById("msg2").innerHTML="Password cannot be empty!";
-        	document.getElementById("passwordinput").style.borderBottomColor="#C21A09";}
+          function emptypass()
+          {document.getElementById("msg2").innerHTML="Password cannot be empty!";
+          document.getElementById("passwordinput").style.borderBottomColor="#C21A09";}
 
             function login()
             {
@@ -121,66 +114,66 @@
                 var pass=document.getElementById("passwordinput").value;
                 if(mail=="")
                 {
-                	var m=emptymail();	
+                  var m=emptymail();  
                 }
                 else if(pass=="")
                 {
-     				var p=emptypass();
-     			}
+            var p=emptypass();
+          }
                 else
                 {
                     alert("access given");
                 }
             }
     </script>
-</head>
+
 
 <body onload="slideshow()">
 	<div class="split left">
 		<div class="mySlides fade">
-  		<img src="work.jpg" style="width: 100%;height: 100%;position: relative">
+  		<img src="/assets/img/work.jpg" style="width: 100%;height: 100%;position: relative">
   		<div class="text" id="b1">RemFun</div>
   		<div class="subtext" id="b2">Have fun while working!</div>
   		</div>
 
 		<div class="mySlides fade">
-  		<img src="workspace.jpg" style="width: 100%;height: 100%;position: relative">
+  		<img src="/assets/img/workspace.jpg" style="width: 100%;height: 100%;position: relative">
   		<div class="text">RemFun</div>
   		<div class="subtext">Have fun while working!</div>
 		</div>
 
 		<div class="mySlides fade">
-  		<img src="introduction.png" style="width: 100%;height: 100%;position: relative">
+  		<img src="/assets/img/introduction.png" style="width: 100%;height: 100%;position: relative">
   		<div class="text">RemFun</div>
   		<div class="subtext">Have fun while working!</div>
     	</div>
 
     	<div class="mySlides fade">
-      	<img src="team.png" style="width: 100%;height: 100%;position: relative">
+      	<img src="/assets/img/team.png" style="width: 100%;height: 100%;position: relative">
       	<div class="text" >RemFun</div>
       	<div class="subtext">Have fun while working!</div>
       	</div>
 
 		<div class="mySlides fade">
-      	<img src="snacks.jpg" style="width: 100%;height: 100%;position: relative">
+      	<img src="/assets/img/snacks.jpg" style="width: 100%;height: 100%;position: relative">
       	<div class="text" >RemFun</div>
       	<div class="subtext">Have fun while working!</div>
       	</div>
 
     	<div class="mySlides fade">
-      	<img src="intro.png" style="width: 100%;height: 100%;position: relative">
+      	<img src="/assets/img/intro.png" style="width: 100%;height: 100%;position: relative">
       	<div class="text" >RemFun</div>
       	<div class="subtext">Have fun while working!</div>
       	</div>
 
     	<div class="mySlides fade">
-      	<img src="happyhour.jpg" style="width: 100%;height: 100%;position: relative">
+      	<img src="/assets/img/happyhour.jpg" style="width: 100%;height: 100%;position: relative">
       	<div class="text">RemFun</div>
       	<div class="subtext">Have fun while working!</div>
     	</div>
 
     	<div class="mySlides fade">
-     	<img src="birthday.jpg" style="width: 100%;height: 100%;position: relative">
+     	<img src="/assets/img/birthday.jpg" style="width: 100%;height: 100%;position: relative">
       	<div class="text">RemFun</div>
       	<div class="subtext">Have fun while working!</div>
     	</div>																	
@@ -190,7 +183,7 @@
     <button type="button" class="header">LOGIN</button>
     <div class="box">
 	<form action="/user/login" method="post">
-		<button type="button" class="btn"><img src="logo.png">
+		<button type="button" class="btn"><img src="/assets/img/logo.png">
       	<span>GOOGLE</span></button>
       	<p id="or">or</p><br>
       	<div class="input-container">
@@ -213,4 +206,3 @@
     </div>
 	</form>
 </body>
-</html>
