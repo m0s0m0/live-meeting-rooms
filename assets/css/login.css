@@ -1,33 +1,33 @@
 .header{
 	color: white;
 	background-color: #C21A09; 
-    position: absolute;
-    font-family: Arial Narrow, sans-serif;
+  position: absolute;
+  font-family: Arial Narrow, sans-serif;
 	font-size: 20px;
 	text-align: center;
 	font-weight: bolder;
-	width: 100%;
-    height: 35px;
-    outline: none;
-    top: 0;
-    border: 0;
+  width: 100%;
+  height: 35px;
+  outline: none;
+  top: 0;
+  border: 0;
 }
 
 .box{
- 	width: 384px;
-  	height: 420px;
-  	margin: auto;
-  	margin-top: 45px;
-  	box-sizing: content-box;
-  	background-color: white;
-  	border: 1px solid ;
-  	border-color: #D9DDDC;
-  	border-radius: 5px;
+ 	width: 362px;
+  height: 450px;
+  margin-left: 10px;
+  margin-top: 45px;
+  box-sizing: content-box;
+  background-color: white;
+  border: 1px solid ;
+  border-color: #D9DDDC;
+  border-radius: 5px;
 	-webkit-border-radius: 5px;
 	box-shadow: 0 0 5px #D9DDDC;
-    -moz-box-shadow: 0 0 5px #D9DDDC ;
-    -webkit-box-shadow: 0 0 5px #D9DDDC;
-    -o-box-shadow: 0 0 5px #D9DDDC;
+  -moz-box-shadow: 0 0 5px #D9DDDC ;
+  -webkit-box-shadow: 0 0 5px #D9DDDC;
+  -o-box-shadow: 0 0 5px #D9DDDC;
 	}
 
 .btn{
@@ -42,7 +42,7 @@
 	border-radius: 5px;
 	-webkit-border-radius: 5px;
 	margin-top: 50px;
-	margin-left: 31px;
+	margin-left: 21px;
 	width: 320px;
 	outline: none;
 	height: 50px;
@@ -104,9 +104,9 @@
   border-bottom: 1px solid;
   border-bottom-color: #A9A9A9;
   outline: none;
-  width: 348px;
+  width: 326px;
   font-size: 12px;
-  margin-left: 18px;
+  margin-left: 16px;
   margin-top: -5px;
 }
 #msg1{
@@ -115,13 +115,13 @@
   color: #C21A09;
   font-weight: bolder;
   margin-top: 1px;
-  margin-left: 18px;
+  margin-left: 16px;
 }
 #password{
   font-family: sans-serif;
   font-size: 12px;
   color: #777672;
-  margin-left: 8px;
+  margin-left: 12px;
   font-weight: bolder;
   margin-top: 20px;
 }
@@ -130,9 +130,9 @@
   border-bottom: 1px solid;
   border-bottom-color: #A9A9A9;
   outline: none;
-  width: 348px;
+  width: 326px;
   font-size: 12px;
-  margin-left: 18px;
+  margin-left: 16px;
   margin-top: -5px;
 }
 #msg2{
@@ -141,10 +141,10 @@
   color: #C21A09;
   font-weight: bolder;
   margin-top: 1px;
-  margin-left: 18px;
+  margin-left: 16px;
 }
 .login{
-  width: 348px;
+  width: 325px;
   height: 30px;
   border: none;
   outline: none;
