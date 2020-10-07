@@ -1,4 +1,4 @@
-.btn{
+.header{
 	color: white;
 	background-color: #C21A09; 
     position: absolute;
@@ -13,21 +13,21 @@
     border: 0;
 }
 
-.box{
- 	width: 384px;
-  	height: 490px;
-  	margin: auto;
-  	margin-top: 45px;
-  	box-sizing: content-box;
-  	background-color: white;
-  	border: 1px solid ;
-  	border-color: #D9DDDC;
-  	border-radius: 5px;
-	-webkit-border-radius: 5px;
-	box-shadow: 0 0 5px #D9DDDC;
-    -moz-box-shadow: 0 0 5px #D9DDDC ;
-    -webkit-box-shadow: 0 0 5px #D9DDDC;
-    -o-box-shadow: 0 0 5px #D9DDDC;
+.registerbox{
+ 	height: 80%;
+  margin-top: 12%;
+  width: 94%;
+  margin-left: 2.7%;
+  box-sizing: content-box;
+  background-color: white;
+  border: 1px solid ;
+  border-color: #D9DDDC;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  box-shadow: 0 0 5px #D9DDDC;
+  -moz-box-shadow: 0 0 5px #D9DDDC ;
+  -webkit-box-shadow: 0 0 5px #D9DDDC;
+  -o-box-shadow: 0 0 5px #D9DDDC;
 	}
 #b1{
 	 animation: 1s ease-out 0s 1 slideInFromLeft;
@@ -46,19 +46,20 @@
 #name{
 	font-family: sans-serif;
 	font-weight: bolder;
-	margin-top: 40px;
-	font-size: 12px;	
-	color: #777672;
-	margin-left: 12px;
+	margin-top: 10%;
+  	font-size: 12px;
+  	margin-left: 4%;
+  	color: #777672; 
 }
 #fullname{
 	border: 0;
 	border-bottom: 1px solid;
 	border-bottom-color: #A9A9A9;
 	outline: none;
-	width: 348px;
-	font-size: 12px;
-	margin-left: 18px;
+	width: 92%;
+  	font-size: 12px;
+  	margin-left: 3.5%;
+  	margin-top: -1%;
 }
 #msg1{
 	font-family:  Arial Narrow,sans-serif;
@@ -66,26 +67,27 @@
 	color: #C21A09;
 	font-weight: bolder;
 	margin-top: 1px;
-	margin-left: 18px;
+	margin-left: 3.5%;
 }
 
-#email{
+#registeremail{
 	font-family: sans-serif;
 	font-weight: bolder;
-	margin-top: 30px;
 	font-size: 12px;	
 	color: #777672;
-	margin-left: 13px;
+	margin-left: 4%;
+	margin-top: 5.5%;
 }
-#emailinput
+#registeremailinput
 {
 	border: 0;
 	border-bottom: 1px solid;
 	border-bottom-color: #A9A9A9;
 	outline: none;
-	width: 348px;
-	font-size: 12px;
-	margin-left: 18px;
+	width: 92%;
+  	font-size: 12px;
+  	margin-left: 3.5%;
+  	margin-top: -1%;
 }
 #msg2{
 	font-family:  Arial Narrow,sans-serif;
@@ -93,26 +95,26 @@
 	color: #C21A09;
 	font-weight: bolder;
 	margin-top: 1px;
-	margin-left: 18px;
+	margin-left: 3.5%;
 }
-#password{
+#registerpassword{
 	font-family: sans-serif;
 	font-size: 12px;
-	color: #777672;
-	margin-left: 14px;
-	margin-top: 30px;
 	font-weight: bolder;
-
+	color: #777672;
+	margin-left: 4%;
+	margin-top: 5.5%;
 }
-#passwordinput
+#registerpass
 {
-	width: 348px;
-	font-size: 12px;
-	margin-left:18px;
 	border: 0;
-	outline: none;
 	border-bottom: 1px solid;
 	border-bottom-color: #A9A9A9;
+	outline: none;
+	width: 92%;
+  	font-size: 12px;
+  	margin-left: 3.5%;
+  	margin-top: -1%;
 }
 #msg3{
 	font-family:  Arial Narrow,sans-serif;
@@ -120,24 +122,25 @@
 	color: #C21A09;
 	font-weight: bolder;
 	margin-top: 1px;
-	margin-left: 18px;
+	margin-left: 3.5%;
 }
 #repassword{
 	font-family: sans-serif;
 	font-size: 12px;
 	color: #777672;
-	margin-left: 14px;
-	margin-top: 30px;
+	margin-left: 4%;
+	margin-top: 5.5%;
 	font-weight: bolder;
 }
 #repeatpassword{
-	width: 348px;
-	font-size: 12px;
-	margin-left:18px;
 	border: 0;
-	outline: none;
 	border-bottom: 1px solid;
 	border-bottom-color: #A9A9A9;
+	outline: none;
+	width: 92%;
+  	font-size: 12px;
+  	margin-left: 3.5%;
+  	margin-top: -1%;
 }
 #msg4{
 	font-family:  Arial Narrow,sans-serif;
@@ -145,21 +148,21 @@
 	color: #C21A09;
 	font-weight: bolder;
 	margin-top: 1px;
-	margin-left: 18px;
+	margin-left: 3.5%;
 }
 .register{
-	width: 348px;
-	height: 30px;
-	border: none;
-	outline: none;
-	background-color: green;
-	color: white;
-	font-size: 15px;
-	font-family: sans-serif;
-	margin-top: 30px;
-	margin-left: 18px;
-	border-radius: 5px;
-	-webkit-border-radius: 5px;
+	width: 90%;
+  height: 30px;
+  border: none;
+  outline: none;
+  background-color: green;
+  color: white;
+  font-size: 15px;
+  font-family: sans-serif;
+  margin-top: 6%;
+  margin-left: 5%;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
 }
 .register:hover{
 	transform:translate(0,-10px);
