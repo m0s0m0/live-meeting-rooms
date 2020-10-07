@@ -53,9 +53,14 @@ app.get('/user/login', function(req, res) {
     res.render('login');
 });
 
+app.get('/user/resetpassword',function(req,res){
+    res.render('resetpassword');
+});
+
 app.get('/user/forgotpassword',function(req,res){
     res.render('forgotpassword');
 });
+
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
