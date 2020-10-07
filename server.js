@@ -61,6 +61,10 @@ app.get('/user/forgotpassword',function(req,res){
     res.render('forgotpassword');
 });
 
+app.get('/user/register',function(req,res){
+    res.render('register');
+});
+
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
