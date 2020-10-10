@@ -17,7 +17,7 @@
 
 .roombox{
 	background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4));
-  	margin-top: 16%;
+  	margin-top: 8%;
   	width: 580px;
   	height: 300px;
   	margin-left: 28%;
@@ -25,9 +25,10 @@
   	border-radius: 5px;
   	-webkit-border-radius: 5px;
 }
-#a1{
+.textbar{
 	font-size: 40px;
 	font-weight: bold; 
+	padding-top: 5%;
   	font-family: sans-serif;
   	color: white;
   	text-align: center;
@@ -43,8 +44,23 @@
 	font-weight: bold;
 	font-size: 20px;
 	outline: none;
-	margin-top: 3%;
+	margin-top: 6%;
 	border-radius: 5px;
 	-webkit-border-radius:5px;
 	}
-
+.activeroom{
+	width: 48%;
+	height: 40px;
+	border: 0;
+	margin-left: 25%;
+	background-color: brown;
+	color: white;
+	font-family: Arial narrow, sans-serif;
+	font-weight: bold;
+	font-size: 20px;
+	outline: none;
+	margin-top: 3%;
+	border-radius: 5px;
+	-webkit-border-radius:5px;
+	
+}

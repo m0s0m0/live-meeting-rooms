@@ -6,15 +6,50 @@
 		background-size: cover;
 		background-attachment: fixed;
 		}
+		.btn-group button {
+  		background-color: brown; 
+  		border: 0; 
+  		outline: none;
+  		color: white;
+  		margin-top: 4%;
+  		width: 270px;
+  		height: 40px;
+  		cursor: pointer; 
+  		float: right;
+  		}
+		.btn-group:after {
+  		content: "";
+  		clear: both;
+  		display: table;
+		}
+		.btn-group button:not(:last-child) {
+  		border-right: none;
+  		}
+		.btn-group button:hover {
+  		background-color: #3B1E08;
+		}
+		
 	</style>
 
 	<body>
 		<form action="/user/dashboard" method="post">
 		<div class="brandname"><img src="/assets/img/logo1.png">Remfun</div>
+		<div class="btn-group">
+  		<button style="width: 200px;margin-right: 4%">trending skill</button>
+  		<div class="dropdown">
+  		<button style="width: 70px"><i class="fa fa-user icon"></i></button>
+  		<div class="dropdown-content">
+  		<a href="#">Link 1</a>
+  		<a href="#">Link 2</a>
+  		<a href="#">Link 3</a>
+  		</div>
+		</div>
+		</div>
 		<div class="roombox">
-		<br>
-		<p id="a1">Watch together</p>
+		<div class="textbar">Watch together</div>
 		<button type="button" class="room">Create your room</button>
+		<button type="button" class="activeroom">Active rooms</button>
+
 		</div>
 
 		</form>
