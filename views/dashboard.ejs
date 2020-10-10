@@ -1,1 +1,22 @@
+	<%- include('base.ejs') %>
+
+	<style>
+		body{
+		background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url("/assets/img/wallpaper.jpg");
+		background-size: cover;
+		background-attachment: fixed;
+		}
+	</style>
+
+	<body>
+		<form action="/user/dashboard" method="post">
+		<div class="brandname"><img src="/assets/img/logo1.png">Remfun</div>
+		<div class="roombox">
+		<br>
+		<p id="a1">Watch together</p>
+		<button type="button" class="room">Create your room</button>
+		</div>
+
+		</form>
+	</body>
 

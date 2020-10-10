@@ -65,6 +65,10 @@ app.get('/user/register',function(req,res){
     res.render('register');
 });
 
+app.get('/user/dashboard',function(req,res){
+    res.render('dashboard');
+});
+
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
