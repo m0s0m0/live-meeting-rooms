@@ -1,13 +1,23 @@
-const database  =  require('./database/index')
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+
+
+require('dotenv').config({ path: '.env.example' });
+
 const express = require('express');
+const session = require('express-session');
+const passport = require('passport');
+const flash = require('connect-flash');
+const bodyParser = require('body-parser');
+
 const app = express();
+
+
+const userRoutes = require('./routes/index').userRoutes
+const roomRoutes = require('./routes/index').roomRoutes
+const PORT = process.env.PORT || 3000
+
 const server = require('http').createServer(app);
 const io = require('socket.io').listen(server);
-const flash = require('connect-flash');
-var session = require('express-session');
-const dotenv = require('dotenv');
+
 const logger = require('morgan');
 const bcrypt= require('bcrypt');
 
@@ -34,51 +44,32 @@ const bcrypt= require('bcrypt');
                 );
             });
 
-dotenv.config({ path: '.env.example' });
 
 
-users = [];
-connections = [];
-rooms = [];
-// Store all of the sockets and their respective room numbers
-userrooms = {}
 
-YT3_API_KEY = process.env.YT3_API_KEY;
-DM_API_KEY = process.env.DM_API_KEY;
 
-// Set given room for url parameter
-var given_room = ""
 
 app.set('view engine', 'ejs'); // set up ejs for templating
+ app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true
+}));
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
+app.use(bodyParser.json())
+
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 app.use('/assets', express.static('assets'));
 app.use('/controllers', express.static('controllers'));
-app.use(session({ cookie: { maxAge: 60000 }, 
-                  secret: 'woot',
-                  resave: false, 
-                  saveUninitialized: false}));
-
-app.use(logger('dev'));
 
 
-
-server.listen(process.env.PORT || 3000);
-console.log('Server Started . . .');
-
-app.get('/room/:room', function(req, res) {
-    given_room = req.params.room
-    res.render('room');
-});
-
-app.get('/user/login', function(req, res) {
-// render the page and pass in any flash data if it exists
-    res.render('login');
-});
-
-app.get('/user/resetpassword',function(req,res){
-    res.render('resetpassword');
+app.use(function(req, res, next){
+    res.locals.message = req.flash('message');
+       next();
 });
 
 app.get('/user/forgotpassword',function(req,res){
@@ -95,21 +86,6 @@ app.get('/user/dashboard',function(req,res){
 
 
 
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    console.log("hey");
-    User.findOne({ username: username }, function(err, user) {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
-      }
-      if (!user.validPassword(password)) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
-    });
-  }
-));
 
 
 app.post('/user/login',
@@ -955,54 +931,17 @@ io.sockets.on('connection', function(socket) {
         //Delay of 5 seconds
         var delay = 5000;
 
-        async.forever(
-
-            function(next) {
-                // Continuously update stream with data
-                //var time = io.sockets.in("room-"+1).emit('getTime', {});
-                //Store data in database
-                //console.log(time);
-
-                console.log("i am auto syncing")
-                socket.emit('syncHost');
-
-                //Repeat after the delay
-                setTimeout(function() {
-                    next();
-                }, delay)
-            },
-            function(err) {
-                console.error(err);
-            }
-        );
+        async.forever()
     });
+});
+
+app.use(logger('dev'));
 
 
-    // Some update functions --------------------------------------------------
-    // Update all users
-    function updateUsernames() {
-        // io.sockets.emit('get users', users);
-        // console.log(users)
-    }
+app.use('/', userRoutes)
+app.use('/', roomRoutes)
+require('./config/passport')(passport)
 
-    // Update the room usernames
-    function updateRoomUsers(roomnum) {
-        if (io.sockets.adapter.rooms['room-' + socket.roomnum] !== undefined) {
-            var roomUsers = io.sockets.adapter.rooms['room-' + socket.roomnum].users
-            io.sockets.in("room-" + roomnum).emit('get users', roomUsers)
-        }
-    }
 
-    // Update the playlist/queue
-    function updateQueueVideos() {
-        if (io.sockets.adapter.rooms['room-' + socket.roomnum] !== undefined) {
-            var vidlist = io.sockets.adapter.rooms['room-' + socket.roomnum].queue
-            var currPlayer = io.sockets.adapter.rooms['room-' + socket.roomnum].currPlayer
-            io.sockets.in("room-" + socket.roomnum).emit('get vidlist', {
-                vidlist: vidlist,
-                currPlayer: currPlayer,
-            })
-        }
-    }
-
-})
+server.listen(process.env.PORT || 3000);
+console.log('Server Started . . .');
