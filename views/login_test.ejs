@@ -1,0 +1,19 @@
+<div class="main">
+            <% if(typeof message !== 'undefined' && message && message.length > 0) { %>
+                <div class="message"><%= message %></div>
+            <% } %>
+<div class="mainForm">
+                <h1>Login</h1>
+                <form action="/test/login" method="POST">
+                    <label for="username">Username: </label>
+                    <input type="text" id="username" name="username" autofocus>
+                    <br />
+
+                    <label for="password">Password: </label>
+                    <input type="password" id="password" name="password">
+                    <br /><br />
+                    
+                    <input class="submitButton" type="submit" value="LOGIN">
+                </form>
+                <p>Or <a href="/test/register">register</a> if you do not have an account.</p>
+            </div>s
