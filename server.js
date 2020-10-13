@@ -9,6 +9,30 @@ const flash = require('connect-flash');
 var session = require('express-session');
 const dotenv = require('dotenv');
 const logger = require('morgan');
+const bcrypt= require('bcrypt');
+
+        const{pool} = require("./dbConfig");
+        app.use(express.urlencoded({extended: false}));
+
+        app.post("/user/register", async function(req,res){
+            let{fullname, registeremailinput, registerpass,repeatpassword }= req.body;
+            console.log({
+                fullname,
+                registeremailinput,
+                registerpass,
+                repeatpassword
+            });
+            let hashedpassword= await bcrypt.hash(password);
+            pool.query(
+                'SELECT * FROM users WHERE email=$1',
+                [email],function (err,res){
+                    if(err){
+                        throw err;
+                    }
+                    console.log(res.rows);
+                }
+                );
+            });
 
 dotenv.config({ path: '.env.example' });
 
@@ -68,6 +92,7 @@ app.get('/user/register',function(req,res){
 app.get('/user/dashboard',function(req,res){
     res.render('dashboard');
 });
+
 
 
 passport.use(new LocalStrategy(

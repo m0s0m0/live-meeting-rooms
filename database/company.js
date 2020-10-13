@@ -15,7 +15,7 @@ async function getCompanyById(company_id){
 
 async function getAllCompanies(){
 	let query = ` select * from public.company`
-	console.log("query for get all companies")
+	console.log("query for get all company")
 }
 
 module.exports = {
