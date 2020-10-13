@@ -22,7 +22,7 @@ function runQuery(query) {
 		else {
 			console.log('query successs full')
 			console.log(res)
-			result.data = res.rows[0];
+			result.data = res.rows;
 			result.status = 1;
 			resolve(result);
 		}
