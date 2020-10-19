@@ -1,5 +1,4 @@
 const express = require('express');
-const request = require('request');
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
@@ -53,6 +52,7 @@ app.get('/user/register',function(req,res){
 });
 
 
+
 app.get('/user/dashboard',function(req,res){
     res.render('dashboard');
 });
@@ -65,10 +65,7 @@ app.get('/user/resetpassword',function(req,res){
     res.render('resetpassword');
 });
 
-app.post('/user/register',
-  passport.authenticate('local', { successRedirect: '/',
-                                   failureFlash: true })
-);
+
 
 var roomno = 1;
 

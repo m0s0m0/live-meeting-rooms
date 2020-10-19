@@ -245,7 +245,7 @@
     <div class="split right">
       <button type="button" class="header">REGISTER</button>
       <div class="registerbox">
-      <form action="/user/register" method="post">
+      <form action="/user/register" method="POST">
       <div class="input-container">
       <i class="fa fa-user icon"></i>
       <p id="name">Full name</p>
@@ -272,11 +272,12 @@
 
       <input type ="password" id="repeatpassword">
       <p id="msg4"></p>
-      <button type="button" class="register" onclick ="register()"><span>REGISTER</span></button> 
+      <button type="submit" class="register" onclick ="register()"><span>REGISTER</span></button> 
       <p id="terms">By registering, I agree to Remfun's <span>T&C</span></p>
+      </form>
       </div>         
       </div>
-      </form>
+      
   </body>
 </div>
 

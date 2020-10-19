@@ -28,3 +28,17 @@ app.post('/user/register',
 );
 
 require('dotenv').config({ path: '.env.example' });
+
+
+function testUser(input) {
+    if (input === '' || input === null || input === undefined){
+        return false
+    }
+    return true
+    }
+function testPass(input) {
+    if (input === '' || input === null || input === undefined){
+        return false
+    }
+    return true
+    }

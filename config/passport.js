@@ -66,7 +66,7 @@ module.exports = function(passport) {
                 console.log("username", req.body.username);
                 console.log("email",req.body.email);
                 console.log("password", req.body.password);
-                let passHash = await bcrypt.hash(req.body.password, 100)
+                let passHash = await bcrypt.hash(req.body.password, 10)
                 console.log("passhash", passHash);
 
                 let query = `select * from public.users where email = '${email}'`
