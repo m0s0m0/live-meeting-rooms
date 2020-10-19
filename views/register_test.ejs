@@ -1,16 +1,19 @@
-<div class="main">
+        <div class="main">
             <% if(typeof message !== 'undefined' && message && message.length > 0) { %>
                 <div class="message"><%= message %></div>
             <% } %>
 
-            <div class="mainForm">
+        <div class="mainForm" >  
                 <h1>Register</h1>
                 <form action="/test/register" method="POST">
                     <p>Username: 4-16 characters, a-Z, 0-9, underscores, and dashes</p>
                     <p>Pasword: 8-128 characters, REQUIRES 1 lowercase, uppercase, and digit</p>
 
-                    <label for="username">Username: </label>
-                    <input type="text" id="username" name="username" autofocus>
+                    <label for="name">Username:</label>
+                    <input type="text" id="name" name="username" autofocus>
+                    <br />
+                    <label for="email">Email: </label>
+                    <input type="text" id="email" name="email" autofocus>
                     <br />
 
                     <label for="password">Password: </label>

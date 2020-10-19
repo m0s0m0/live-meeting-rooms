@@ -1,8 +1,5 @@
-
-
-require('dotenv').config({ path: '.env.example' });
-
 const express = require('express');
+const request = require('request');
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
@@ -21,32 +18,7 @@ const io = require('socket.io').listen(server);
 const logger = require('morgan');
 const bcrypt= require('bcrypt');
 
-        const{pool} = require("./dbConfig");
-        app.use(express.urlencoded({extended: false}));
-
-        app.post("/user/register", async function(req,res){
-            let{fullname, registeremailinput, registerpass,repeatpassword }= req.body;
-            console.log({
-                fullname,
-                registeremailinput,
-                registerpass,
-                repeatpassword
-            });
-            let hashedpassword= await bcrypt.hash(password);
-            pool.query(
-                'SELECT * FROM users WHERE email=$1',
-                [email],function (err,res){
-                    if(err){
-                        throw err;
-                    }
-                    console.log(res.rows);
-                }
-                );
-            });
-
-
-
-
+       
 
 
 app.set('view engine', 'ejs'); // set up ejs for templating
@@ -80,19 +52,23 @@ app.get('/user/register',function(req,res){
     res.render('register');
 });
 
+
 app.get('/user/dashboard',function(req,res){
     res.render('dashboard');
 });
 
+app.get('/user/login',function(req,res){
+    res.render('login');
+});
 
+app.get('/user/resetpassword',function(req,res){
+    res.render('resetpassword');
+});
 
-
-
-app.post('/user/login',
+app.post('/user/register',
   passport.authenticate('local', { successRedirect: '/',
                                    failureFlash: true })
 );
-
 
 var roomno = 1;
 

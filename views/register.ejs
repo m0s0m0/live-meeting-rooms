@@ -1,4 +1,8 @@
-	<%- include('base.ejs') %>
+
+    <%- include('base.ejs') %>
+    <% if(typeof message !== 'undefined' && message && message.length > 0) { %>
+      <div class="message"><%= message %></div>
+      <% } %>
 
     <style>
     body{
@@ -72,7 +76,7 @@
       	width: 10px; 
       	height: 10px;
       	margin-left: 3%;
-      	margin-top: 10%;
+      	margin-top: 11%;
       	
     	}
 	</style>
@@ -102,7 +106,7 @@
             }
           else{
             document.getElementById("msg2").innerHTML="Use valid email address!";
-            document.getElementById("emailinput").style.borderBottomColor="#C21A09";
+            document.getElementById("registeremailinput").style.borderBottomColor="#C21A09";
             return (false)
             }
         }
@@ -115,7 +119,7 @@
             }
           else{
             document.getElementById("msg3").innerHTML="Use valid password!";
-            document.getElementById("passwordinput").style.borderBottomColor="#C21A09";
+            document.getElementById("registerpass").style.borderBottomColor="#C21A09";
             alert("Password must contain atleast 1 Uppercase,1 Lowercase,special character and a numeric letter.")
             return (false)
             }
@@ -123,20 +127,20 @@
 
         function ValidateName(name) 
         {
-        if (/^[A-Za-z]+$/.test(fullname.value))
+        if (/^[A-Za-z]+$/.test(username.value))
             {
             return (true)
             }
           else{
             document.getElementById("msg1").innerHTML="Use valid name!";
-            document.getElementById("fullname").style.borderBottomColor="#C21A09";
+            document.getElementById("username").style.borderBottomColor="#C21A09";
             alert("Name must contain only alphabet characters.")
             return (false)
             }
         }
         function emptyname()
         {document.getElementById("msg1").innerHTML="Name cannot be empty!";
-        document.getElementById("fullname").style.borderBottomColor="#C21A09";
+        document.getElementById("username").style.borderBottomColor="#C21A09";
         }
 
         function emptymail()
@@ -153,7 +157,7 @@
 
          function register()
               {
-                var fname=document.getElementById("fullname").value;
+                var fname=document.getElementById("username").value;
                 var mail=document.getElementById("registeremailinput").value;
                 var pass=document.getElementById("registerpass").value;
                 var repass=document.getElementById("repeatpassword").value;
@@ -246,19 +250,19 @@
       <i class="fa fa-user icon"></i>
       <p id="name">Full name</p>
       </div>
-      <input type="text" id="fullname" onchange="ValidateName()">
+      <input type="text" id="username" name="username" onchange="ValidateName()">
       <p id="msg1"></p>
       <div class="input-container">
       <ul><i class="fa fa-envelope icon"></i></ul>
       <p id="registeremail">Enter email</p>
       </div>
-      <input type="text" id="registeremailinput" onchange="ValidateEmail()">
+      <input type="text" id="registeremailinput" name="email" onchange="ValidateEmail()">
       <p id="msg2"></p>
       <div class="input-container">
       <ul><i class="fa fa-lock icon"></i></ul>
       <p id="registerpassword">Enter password</p>
       </div>
-      <input type ="password" id="registerpass" onchange="ValidatePass()">
+      <input type ="password" id="registerpass" name="password" onchange="ValidatePass()">
       <p id="msg3"></p>
 
       <div class="input-container">
@@ -274,5 +278,5 @@
       </div>
       </form>
   </body>
-
+</div>
 

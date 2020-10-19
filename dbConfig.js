@@ -1,10 +1,30 @@
-require("dotenv").config();
-const {Pool} = require("pg");
-const isProduction = process.env.NODE_ENV==="production";
-const connectionString = 'postgressql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}'; 
+  const{pool} = require("./dbConfig");
+        app.use(express.urlencoded({extended: false}));
 
-const pool = new Pool({
-	connectionString: isProduction ? process.env.DATABASE_URL : connectionString
-});
+        app.post("/user/register", async function(req,res){
+            let{username, email, password }= req.body;
+            console.log({
+                username,
+                email,
+                password
+            });
+            let hashedpassword= await bcrypt.hash(password,8);
+            console.log("passhash", passHash);
+            pool.query(
+                'SELECT * FROM users WHERE email=$1 and name=$1',
+                [email,name],function (err,res){
+                    if(err){
+                        throw err;
+                    }
+                    console.log(res.rows);
+                }
+                );
+            });
 
-module.exports = {pool};
+
+app.post('/user/register',
+  passport.authenticate('local', { successRedirect: '/',
+                                   failureFlash: true })
+);
+
+require('dotenv').config({ path: '.env.example' });

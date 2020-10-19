@@ -4,8 +4,6 @@ const runQuery = connection.runQuery;
 
 var LocalStrategy = require('passport-local').Strategy
 
-let accData = []
-
 module.exports = function(passport) {
     passport.serializeUser(function(user, done) {
         done(null, user);
@@ -17,12 +15,12 @@ module.exports = function(passport) {
     passport.use('login', new LocalStrategy({
         passReqToCallback : true
     },
-    function(req, username, password, done) {
+    function(req, username,email, password, done) {
         loginUser()
         async function loginUser() {
             try {
                 let password = req.body.password;
-                let query = `select * from public.users where email='${req.body.username}'`
+                let query = `select * from public.users where email='${req.body.email}'`
                 let result = await runQuery(query);
                 console.log("result", result);
                     if (result.err) {
@@ -30,7 +28,7 @@ module.exports = function(passport) {
                     }
 
                     if (result.data.length == 0) {
-					    return done(null, false, req.flash('message', "Incorrect username"))
+					    return done(null, false, req.flash('message', "Incorrect email"))
                     } else {
                         let userInfo = result.data[0]
                         bcrypt.compare(password, userInfo.password, (err, valid) => {
@@ -39,49 +37,52 @@ module.exports = function(passport) {
                                 return done(err)
                             }
                             if (valid) {
-                                console.log('User [' + req.body.username + '] has logged in.')
+                                console.log('User [' + req.body.email + '] has logged in.')
                                 return done(null, {username: userInfo.email})
                             } else {
-                                return done(null, false, req.flash('message', "Incorrect Username Or Password"))
+                                return done(null, false, req.flash('message', "Incorrect email Or Password"))
                             }
                         })
                     }
             }
             catch(e) {
                 throw (e)
+
             }
         }
     }))
 
     passport.use('register', new LocalStrategy({
         usernameField : 'username',
+        emailField    :  'email', 
         passwordField : 'password',
         passReqToCallback : true
     },
-    function(req, username, password, done) {
+    function(req, username,email, password, done) {
         registerUser()
         async function registerUser() {
             
             try {
                 console.log("username", req.body.username);
+                console.log("email",req.body.email);
                 console.log("password", req.body.password);
-                let passHash = await bcrypt.hash(req.body.password, 8)
+                let passHash = await bcrypt.hash(req.body.password, 100)
                 console.log("passhash", passHash);
 
-                let query = `select * from public.users where email = '${username}'`
+                let query = `select * from public.users where email = '${email}'`
                 let result = await runQuery(query);
                 if (result.data.length == 0){
-                    query = `insert into public.users (email, password) values ('${req.body.username}', '${passHash}')`
+                    query = `insert into public.users (username,email, password) values ('${req.body.username}','${req.body.email}', '${passHash}')`
                     result = await runQuery(query)
                     if (result.err){
                         return done(null, false, req.flash('message', 'Something went wrong'))
                     }
                     else{
-                        return done(null, {username: req.body.username})
+                        return done(null, {email: req.body.email})
                     }
                 }
                 else{
-                    return done(null, false, req.flash('message', 'Username Already Exist'))
+                    return done(null, false, req.flash('message', 'Email Already Exist'))
                 }
             }
             catch(e) {
