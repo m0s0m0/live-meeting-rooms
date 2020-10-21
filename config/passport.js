@@ -2,7 +2,7 @@ const bcrypt= require('bcryptjs')
 const connection = require('../database/connect.js')
 const runQuery = connection.runQuery;
 
-var LocalStrategy = require('passport-local').Strategy
+var LocalStrategy = require('passport-local').Strategy;
 
 module.exports = function(passport) {
     passport.serializeUser(function(user, done) {

@@ -1,1 +1,21 @@
+<%- include('base.ejs') %>
+ 	<style>
+		body{
+		background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url("/assets/img/wallpaper.jpg");
+		background-size: cover;
+		background-attachment: fixed;
+		}
+	</style>
 
+	<body>
+		<form action="/user/company" method="post">
+		<div class="databox">
+		<p id="company">Company name</p>
+		<input type="text" id="companyname">
+		<p id="domain">Company domain</p>
+		<input type="text" id="companydomain">
+		<p id="email">Email</p>
+		<input type="email" id="companyemail">
+		</div>
+		</form>
+	</body>

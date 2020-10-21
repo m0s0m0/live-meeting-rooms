@@ -1,11 +1,11 @@
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
+const request =require('request');
 const flash = require('connect-flash');
 const bodyParser = require('body-parser');
 
 const app = express();
-
 
 const userRoutes = require('./routes/index').userRoutes
 const roomRoutes = require('./routes/index').roomRoutes
@@ -51,6 +51,9 @@ app.get('/user/register',function(req,res){
     res.render('register');
 });
 
+app.get('/user/companydata',function(req,res){
+    res.render('companydata');
+});
 
 
 app.get('/user/dashboard',function(req,res){

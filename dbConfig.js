@@ -8,8 +8,8 @@
                 email,
                 password
             });
-            let hashedpassword= await bcrypt.hash(password,8);
-            console.log("passhash", passHash);
+            let passhash= await bcrypt.hash(password,8);
+            console.log("passhash",passhash);
             pool.query(
                 'SELECT * FROM users WHERE email=$1 and name=$1',
                 [email,name],function (err,res){
@@ -42,3 +42,6 @@ function testPass(input) {
     }
     return true
     }
+
+
+    require('./config/passport')(passport)
