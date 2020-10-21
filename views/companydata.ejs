@@ -1,4 +1,8 @@
-<%- include('base.ejs') %>
+	
+    <%- include('base.ejs') %>
+ <% if(typeof message !== 'undefined' && message && message.length > 0) { %>
+                <div class="message"><%= message %></div>
+            <% } %>
  	<style>
 		body{
 		background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url("/assets/img/wallpaper.jpg");
@@ -8,14 +12,15 @@
 	</style>
 
 	<body>
-		<form action="/user/company" method="post">
+		<form action="/user/companydata" method="post">
 		<div class="databox">
 		<p id="company">Company name</p>
-		<input type="text" id="companyname">
-		<p id="domain">Company domain</p>
-		<input type="text" id="companydomain">
+		<input type="text" id="companyname" name="name">
 		<p id="email">Email</p>
-		<input type="email" id="companyemail">
+		<input type="email" id="companyemail" name="email">
+		<p id="domain">Company domain</p>
+		<input type="text" id="companydomain" name="domain">
 		</div>
+		<button type="submit" class="submit">SUBMIT</button>
 		</form>
 	</body>

@@ -6,6 +6,8 @@ const flash = require('connect-flash');
 const bodyParser = require('body-parser');
 
 const app = express();
+const connection = require('./database/connect.js')
+const runQuery = connection.runQuery;
 
 const userRoutes = require('./routes/index').userRoutes
 const roomRoutes = require('./routes/index').roomRoutes
@@ -43,33 +45,110 @@ app.use(function(req, res, next){
        next();
 });
 
-app.get('/user/forgotpassword',function(req,res){
-    res.render('forgotpassword');
-});
-
 app.get('/user/register',function(req,res){
     res.render('register');
 });
 
-app.get('/user/companydata',function(req,res){
-    res.render('companydata');
+app.post("/user/register", async function(req,res){
+    let{username, email, password }= req.body;
+    console.log({
+    username,
+    email,
+    password
+    });
+    let query = `select * from public.users where email = '${email}'`
+    let result = await runQuery(query);
+    let passHash= await bcrypt.hash(password,8);
+    console.log("passHash",passHash);
+    if (result.data.length == 0){
+    query = `insert into public.users (username,email, password) values ('${req.body.username}','${req.body.email}', '${passHash}')`
+    result = await runQuery(query)
+    if (result.err){
+        return done(null, false, req.flash('message', 'Something went wrong'))
+        }
+        else{
+            return done(null, {email: req.body.email})
+            }
+        }
+    else{
+        return done(null, false, req.flash('message', 'Email Already Exist'))
+        }
+    });
+
+
+app.get('/user/login',function(req,res){
+    res.render('login');
 });
+
+app.post("/user/login", async function(req,res){
+     let password = req.body.password;
+                let query = `select * from public.users where email='${req.body.email}'`
+                let result = await runQuery(query);
+                console.log("result", result);
+                    if (result.err) {
+                        return done(err)
+                    }
+
+                    if (result.data.length == 0) {
+                        return done(null, false, req.flash('message', "Incorrect email"))
+                    } else {
+                        let userInfo = result.data[0]
+                        bcrypt.compare(password, userInfo.password, (err, valid) => {
+                            if (err) {
+                                console.log("Error on password validation")
+                                return done(err)
+                            }
+                            if (valid) {
+                                console.log('User [' + req.body.email + '] has logged in.')
+                                return done(null, {username: userInfo.email})
+                            } else {
+                                return done(null, false, req.flash('message', "Incorrect email Or Password"))
+                            }
+                        })
+                    }
+    });
 
 
 app.get('/user/dashboard',function(req,res){
     res.render('dashboard');
 });
 
-app.get('/user/login',function(req,res){
-    res.render('login');
+app.get('/user/forgotpassword',function(req,res){
+    res.render('forgotpassword');
 });
 
 app.get('/user/resetpassword',function(req,res){
     res.render('resetpassword');
 });
 
+app.get('/user/companydata',function(req,res){
+    res.render('companydata');
+});
 
-
+app.post('/user/companydata',async function(req,res){
+     let{name, email, domain}= req.body;
+            console.log({
+                name,
+                email,
+                domain
+            });
+            let query = `select * from public.company where email = '${email}'`
+            let result = await runQuery(query);
+            if (result.data.length == 0){
+                query = `insert into public.company (name,email,domain) values ('${req.body.name}','${req.body.email}', '${req.body.domain}')`
+                result = await runQuery(query)
+                if (result.err){
+                    return done(null, false, req.flash('message', 'Something went wrong'))
+                    }
+                else{
+                    return done(null, {email: req.body.email})
+                    }
+                }
+            else{
+                    return done(null, false, req.flash('message', 'Email Already Exist'))
+                }
+});
+   
 var roomno = 1;
 
 io.sockets.on('connection', function(socket) {
@@ -916,7 +995,6 @@ app.use(logger('dev'));
 
 app.use('/', userRoutes)
 app.use('/', roomRoutes)
-require('./config/passport')(passport)
 
 
 server.listen(process.env.PORT || 3000);
