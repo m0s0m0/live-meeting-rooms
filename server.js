@@ -7,6 +7,23 @@ const bodyParser = require('body-parser');
 const app = express();
 
 
+let connection = require('./database/connect');
+let runQuery = connection.runQuery;
+
+console.log("runQueryO]var", runQuery);
+
+
+var result = null;
+async function getAllUsers(){
+    let query = `select * from public.users`;
+    result = await runQuery(query);
+    return result.rows;
+}
+
+
+
+console.log("resuilt after function", result);
+
 const userRoutes = require('./routes/index').userRoutes
 const roomRoutes = require('./routes/index').roomRoutes
 const PORT = process.env.PORT || 3000
@@ -53,6 +70,10 @@ app.get('/user/register',function(req,res){
 
 
 
+app.get('/test/api',function(req,res){
+    res.send(getAllUsers());
+});
+
 app.get('/user/dashboard',function(req,res){
     res.render('dashboard');
 });
@@ -64,6 +85,8 @@ app.get('/user/login',function(req,res){
 app.get('/user/resetpassword',function(req,res){
     res.render('resetpassword');
 });
+
+
 
 
 

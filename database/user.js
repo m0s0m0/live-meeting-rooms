@@ -9,7 +9,7 @@ async function getAllCompanyUser(company_id){
 
 
 async function getUserByEmail(email){
-	let query = `select * from public.users where email='${email}'`
+	let query = `select * from public.users'`
 	let result = await runQuery(query)
 	return result
 }
