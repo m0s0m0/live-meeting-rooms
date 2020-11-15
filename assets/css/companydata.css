@@ -1,0 +1,116 @@
+#databox{
+	background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4));
+  	margin-top: 5%;
+  	width: 580px;
+  	height: 300px;
+  	margin-left: 28%;
+  	box-sizing: content-box;
+  	border-radius: 5px;
+  	-webkit-border-radius: 5px;
+}
+#company{
+	width: 48%;
+	height: 30px;
+	border: 0;
+	margin-left: 25%;
+	background-color: brown;
+	color: white;
+	font-family: Arial narrow, sans-serif;
+	font-weight: bold;
+	font-size: 15px;
+	outline: none;
+	margin-top: 6%;
+	border-radius: 5px;
+	-webkit-border-radius:5px;
+}
+#companyname{
+	width: 48%;
+	height: 30px;
+	border: 0;
+	margin-left: 25%;
+	background-color: brown;
+	color: white;
+	font-family: Arial narrow, sans-serif;
+	font-weight: bold;
+	font-size: 15px;
+	outline: none;
+	margin-top: 1%;
+	border-radius: 5px;
+	-webkit-border-radius:5px;
+}
+#domain{
+	width: 48%;
+	height: 30px;
+	border: 0;
+	margin-left: 25%;
+	background-color: brown;
+	color: white;
+	font-family: Arial narrow, sans-serif;
+	font-weight: bold;
+	font-size: 15px;
+	outline: none;
+	margin-top: 1%;
+	border-radius: 5px;
+	-webkit-border-radius:5px;
+}
+#companydomain{
+	width: 48%;
+	height: 30px;
+	border: 0;
+	margin-left: 25%;
+	background-color: brown;
+	color: white;
+	font-family: Arial narrow, sans-serif;
+	font-weight: bold;
+	font-size: 15px;
+	outline: none;
+	margin-top: 1%;
+	border-radius: 5px;
+	-webkit-border-radius:5px;
+}
+#email{
+	width: 48%;
+	height: 30px;
+	border: 0;
+	margin-left: 25%;
+	background-color: brown;
+	color: white;
+	font-family: Arial narrow, sans-serif;
+	font-weight: bold;
+	font-size: 15px;
+	outline: none;
+	margin-top: 1%;
+	border-radius: 5px;
+	-webkit-border-radius:5px;
+}
+#companyemail{
+	width: 48%;
+	height: 30px;
+	border: 0;
+	margin-left: 25%;
+	background-color: brown;
+	color: white;
+	font-family: Arial narrow, sans-serif;
+	font-weight: bold;
+	font-size: 15px;
+	outline: none;
+	margin-top: 1%;
+	border-radius: 5px;
+	-webkit-border-radius:5px;
+}
+.submit{
+	width: 48%;
+	height: 30px;
+	border: 0;
+	text-align: center;
+	margin-left: 25%;
+	background-color: brown;
+	color: white;
+	font-family: Arial narrow, sans-serif;
+	font-weight: bold;
+	font-size: 15px;
+	outline: none;
+	margin-top: 1%;
+	border-radius: 5px;
+	-webkit-border-radius:5px;
+}

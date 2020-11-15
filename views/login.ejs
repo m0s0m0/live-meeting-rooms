@@ -1,4 +1,7 @@
 	<%- include('base.ejs') %>
+  <% if(typeof message !== 'undefined' && message && message.length > 0) { %>
+      <div class="message"><%= message %></div>
+      <% } %>
 
   	<style>
 		<style>
@@ -196,9 +199,9 @@
       	<p id="or">or</p><br>
       	<div class="input-container">
       	<i class="fa fa-envelope icon"></i>
-		<p id="email">Enter email</p>
+		<p id="loginemail">Enter email</p>
 		</div>
-    	<input type="text" id="emailinput" name="emailinput" onchange="ValidateEmail()">
+    	<input type="text" id="emailinput" name="email" onchange="ValidateEmail()">
       	<p id="msg1"></p>
 
       	<div class="input-container">
@@ -206,9 +209,9 @@
       	<p id="pass">Enter password</p>
     	</div>
     	
-      	<input type ="password" id="passwordinput" name="passwordinput">
+      	<input type ="password" id="passwordinput" name="password">
       	<p id="msg2"></p>
-	    <button type="button" class="login" onclick ="login()"><span>LOGIN</span></button> 
+	    <button type="submit" class="login" onclick ="login()"><span>LOGIN</span></button> 
 	    <input type="button" class="forgotpass" onclick ="forgotpass()"value="Forgot password?"> 
     </div>         
     </div>
