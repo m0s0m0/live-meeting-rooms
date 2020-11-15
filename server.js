@@ -15,10 +15,12 @@ console.log("runQueryO]var", runQuery);
 
 var result = null;
 async function getAllUsers(){
-    let query = `select * from public.users`;
+    let query = `select * from public.users whwew`;
     result = await runQuery(query);
-    return result.rows;
+    console.log("result in getAllUsers", result);
+    return result;
 }
+
 
 
 
@@ -70,8 +72,11 @@ app.get('/user/register',function(req,res){
 
 
 
-app.get('/test/api',function(req,res){
-    res.send(getAllUsers());
+app.get('/test/api/',async function(req,res){
+    let allUsers = await getAllUsers()
+    console.log("allUsers", allUsers);
+
+    res.send(allUsers)
 });
 
 app.get('/user/dashboard',function(req,res){
