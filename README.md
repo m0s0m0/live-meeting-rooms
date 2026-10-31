@@ -1,176 +1,40 @@
-### Dependencies
+# Live Meeting Rooms
 
-Socket.io
+Real-time synchronized viewing rooms: anyone can create a room, share the link, and everyone who joins watches the same video in sync — play, pause, and seek on one screen apply to everyone in the room instantly. A late joiner is caught up automatically rather than having to hit "sync" themselves.
 
-Node.js
+**What this is, precisely:** synchronized media playback across a shared room, built on WebSockets — not video calling. There's no camera/mic/WebRTC between participants; the "meeting" is everyone watching the same stream together in lockstep, with authenticated accounts and a per-room host.
 
-Express
+## Tech stack
+Node.js, Express, Socket.IO, Passport (local auth), EJS templating, PostgreSQL, bcrypt.
 
-YouTube Data API V3
+## How it works
 
----
+Each client connection opens a Socket.IO socket. Entering a room name/number joins (or creates) a Socket.IO room; from then on, server-side events are scoped to that room only, so an action in one room never touches another.
 
-### How to run locally
+**Host-driven sync.** The first socket into a room is marked `host`. The host socket carries the canonical state for the room — current video, current player, and the playback queue per player type — stored directly on Socket.IO's room object:
 
-##### How to run the server
-
-Install Dependencies
 ```
+io.sockets.adapter.rooms['room-' + roomnum]
+│   .host, .hostName, .users, .currPlayer, .length
+├── .currVideo / .prevVideo   (per player: yt / dm / vimeo / html5)
+├── .queue                    (per player: [{ videoId, title }])
+└── .sockets                  (connected socket IDs)
+```
+
+When someone calls `play`/`pause`/`seek`, the server re-emits that action to every other socket in the room. When a new socket joins an already-running room, it reads the host's current state instead of starting from scratch — that's what makes sync automatic rather than something each viewer has to trigger.
+
+**Multi-player support.** Started with YouTube's API only; adding DailyMotion, Vimeo, and HTML5 players meant abstracting player control behind a common interface, since each provider's API behaves differently. Players are initialized up front and shown/hidden rather than torn down, so switching players mid-session preserves your position in whichever video you came from.
+
+## Running locally
+
+```bash
 npm install
+cp .env.example .env   # fill in your own DB connection and API keys
+npm run dev
 ```
 
-Create a `.env` file and add API keys for YouTube Data API V3 and Dailymotion SDK (Optional) as YT3_API_KEY and DM_API_KEY
+Needs a YouTube Data API v3 key (`YT3_API_KEY`) and, optionally, a Dailymotion SDK key (`DM_API_KEY`) in `.env`.
 
-Run the server
+```bash
+npm test   # CI test suite
 ```
-node server
-```
-
-Access the page by going to localhost:3000
-
-##### How to run CI tests
-
-```
-npm test
-```
-
----
-
-### How it works
-
-##### The Basics
-
-The entire functionality  relies on web sockets, specifically
-Socket.IO. When a client connects to the server, a socket is created. The user
-then enters a name and a room number. The inputs are sent back to the server, and
-it creates/joins a room of that name with Socket.IO. Any user can connect to the
-room and interact with the users there.
-
-Socket.IO functions can be emitted to certain rooms only. This way users in a
-specific room can call a function and have it only affect their room. This
-provides the foundation of the functionality.
-
-##### Functionality
-
-The functionality of synchronization is simply controlling the video player, and
-calling the same functions for each socket in the room. For example if a person
-calls play, it will call play for every connected socket. If a person calls sync
-it will retrieve the current time from that user only and send the data to every
-other socket. It will use that data and bring everyone to the correct time.
-
-##### Hosts
-
-At first it was fine to have host-less rooms, but I quickly realized
-that people want to be auto-synced rather than hitting the sync button over
-and over. For example if you join an already existing room, you want to jump
-right into the content rather than worrying about syncing!
-
-To do this I created a host socket which would be marked when a room is created.
-This host socket is responsible for sending all the important video information
-to any new sockets that join. Socket.IO rooms have a really nice variable that
-can hold specific information for a room.
-
-```
-io.sockets.adapter.rooms['room-'+roomnum].host = socket.id
-```
-
-Along with holding the host information this object also holds the current
-video, player, and connected clients.
-
-##### Video Players
-
-At first I only supported the YouTube API because it was the easiest and most
-popular video platform. While it was good for what it was, I wanted to support
-many more players. It was difficult at first because the way I implemented
-YouTube was in a way that would not work with others. Additionally every
-video player had a different API and functioned differently.
-
-I started playing around with the Daily Motion API, and I had to completely
-redesign how I was displaying the player. What I did was simply initialize all
-of the players and would destroy/hide a player when necessary. While this worked
-there seemed to be many bugs.
-
-This was probably the hardest part so far. Just because of all of the
-asynchronous calls messing up some of the sockets. I finally figured out a way
-to add all the possible data into the host and room object. Any new sockets that
-join or sync will have all the data already loaded and synced automatically.
-Even when you play a YouTube video and switch players, your progress on the
-original YouTube video will be saved and you can go back to it at any time.
-
-This set up the foundation for many more video players in the future. I hope to
-implement them soon! One feature I would really like would be the ability to
-parse videos from any link, but that may be out of my ability at the moment!
-
-
-##### The Room Object
-
-io.sockets.adapter.rooms['room-'+roomnum]
-
-This is the special object generated for every room created. Here is it's structure:
-
-```
-io.sockets.adapter.rooms['room-'+roomnum]
-│   .host
-|   .hostName
-|   .users
-│   .currPlayer
-|   .length
-│
-└───.currVideo
-│   |   .yt
-│   |   .dm
-│   |   .vimeo
-│   |   .html5
-|
-└───.prevVideo
-│   │
-│   └───.yt
-│   |   |   .id
-│   |   |   .time
-│   └───.dm
-│   |   |   .id
-│   |   |   .time
-│   └───.vimeo
-│   |   │   .id
-│   |   │   .time
-│   └───.html5
-│       │   .id
-│       │   .time
-|
-└───.queue
-│   |
-|   └───.yt
-|   |   └───[{
-|   |   |   videoId,
-|   |   |   title
-|   |   |   }]
-|   |
-│   └───.dm
-|   |   └───[{
-|   |   |   videoId,
-|   |   |   title
-|   |   |   }]
-|   |
-│   └───.vimeo
-|   |   └───[{
-|   |   |   videoId,
-|   |   |   title
-|   |   |   }]
-|   |
-│   └───.html5
-|       └───[{
-|       |   videoId,
-|       |   title
-|       |   }]
-|
-└───.sockets
-    │   SOCKET-ID1
-    │   SOCKET-ID2
-    |   ...
-```
-
-**Some Notable Things**
-
-The Queue object consists of arrays for each specific player. Each array then
-consists of objects that hold both the id and title. It was created this way because
-grabbing the title required extra work, and could not be done continuously on the spot.
