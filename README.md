@@ -1,5 +1,7 @@
 # Live Meeting Rooms
 
+*Originally built in 2020. README rewritten and secrets cleaned out in 2026 before making this public — the code itself is unchanged from 2020.*
+
 Real-time synchronized viewing rooms: anyone can create a room, share the link, and everyone who joins watches the same video in sync — play, pause, and seek on one screen apply to everyone in the room instantly. A late joiner is caught up automatically rather than having to hit "sync" themselves.
 
 **What this is, precisely:** synchronized media playback across a shared room, built on WebSockets — not video calling. There's no camera/mic/WebRTC between participants; the "meeting" is everyone watching the same stream together in lockstep, with authenticated accounts and a per-room host.
